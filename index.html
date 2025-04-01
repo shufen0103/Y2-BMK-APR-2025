@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y2 BMK APR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=KaiTi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-theme: #E3F2FD;
+  --pink-theme: #FCE4EC;
+  --purple-theme: #F3E5F5;
+  --green-theme: #E8F5E9;
+}
+body {
+  font-family: 'KaiTi', serif;
+  background-color: #f7fafc;
+  margin: 0;
+  padding: 0;
+}
+.flashcard-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .flashcard-container {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+}
+.card-group {
+  padding: 15px;
+  border-radius: 12px;
+  display: none;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.group-1 { background-color: var(--blue-theme); }
+.group-2 { background-color: var(--pink-theme); }
+.group-3 { background-color: var(--purple-theme); }
+.group-4 { background-color: var(--green-theme); }
+.card {
+  width: 100%;
+  height: 180px;
+  margin: 10px auto;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 8px;
+  background: white;
+  font-size: 22px;
+  word-wrap: break-word;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.card-front {
+  font-family: 'KaiTi', serif;
+}
+.card-back {
+  transform: rotateY(180deg);
+  font-family: 'Comic Sans MS', cursive;
+}
+.sound-icon {
+  margin-top: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #4285f4;
+}
+.group-title {
+  font-weight: bold;
+  padding: 8px 0;
+  margin-bottom: 12px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 28px;
+  font-family: 'KaiTi', serif;
+  text-align: center;
+}
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 0 10px;
+}
+.button-container button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-size: 18px;
+  font-family: 'Comic Sans MS', cursive;
+  transition: background-color 0.3s ease;
+}
+.button-container button.group-1-btn {
+  background-color: var(--blue-theme);
+}
+.button-container button.group-2-btn {
+  background-color: var(--pink-theme);
+}
+.button-container button.group-3-btn {
+  background-color: var(--purple-theme);
+}
+.button-container button.group-4-btn {
+  background-color: var(--green-theme);
+}
+.button-container button:hover {
+  opacity: 0.8;
+}
+.instruction {
+  text-align: center;
+  margin: 12px 0;
+  color: #666;
+  font-size: 18px;
+  font-family: 'KaiTi', serif;
+}
+.header {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  text-align: center;
+}
+.header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Y2 BMK APR</h1>
+  <p class="instruction">点击卡片翻转，点击喇叭图标听发音</p>
+</div>
+<div class="button-container">
+  <button class="group-1-btn" onclick="toggleGroup('group-1')">8-14/4</button>
+  <button class="group-2-btn" onclick="toggleGroup('group-2')">15-21/4</button>
+  <button class="group-3-btn" onclick="toggleGroup('group-3')">22-28/4</button>
+  <button class="group-4-btn" onclick="toggleGroup('group-4')">1-7/5</button>
+</div>
+<div class="flashcard-container">
+  <!-- 8-14/4 -->
+  <section id="group-1" class="card-group group-1">
+    <h2 class="group-title">8-14/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">玩弹珠<span class="sound-icon" onclick="playChinese('玩弹珠', event)">🔊</span></div>
+        <div class="card-back">bermain guli<span class="sound-icon" onclick="playMalay('bermain guli', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">陪弟弟<span class="sound-icon" onclick="playChinese('陪弟弟', event)">🔊</span></div>
+        <div class="card-back">menemani adik<span class="sound-icon" onclick="playMalay('menemani adik', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">看电视<span class="sound-icon" onclick="playChinese('看电视', event)">🔊</span></div>
+        <div class="card-back">menonton televisyen<span class="sound-icon" onclick="playMalay('menonton televisyen', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">遵守规则<span class="sound-icon" onclick="playChinese('遵守规则', event)">🔊</span></div>
+        <div class="card-back">mematuhi peraturan<span class="sound-icon" onclick="playMalay('mematuhi peraturan', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">过马路<span class="sound-icon" onclick="playChinese('过马路', event)">🔊</span></div>
+        <div class="card-back">melintas jalan<span class="sound-icon" onclick="playMalay('melintas jalan', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">用天桥<span class="sound-icon" onclick="playChinese('用天桥', event)">🔊</span></div>
+        <div class="card-back">menggunakan jejantas<span class="sound-icon" onclick="playMalay('menggunakan jejantas', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">绑安全帽<span class="sound-icon" onclick="playChinese('绑安全帽', event)">🔊</span></div>
+        <div class="card-back">memakai topi keledar<span class="sound-icon" onclick="playMalay('memakai topi keledar', event)">🔊</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15-21/4 -->
+  <section id="group-2" class="card-group group-2">
+    <h2 class="group-title">15-21/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">等巴士<span class="sound-icon" onclick="playChinese('等巴士', event)">🔊</span></div>
+        <div class="card-back">menunggu bas<span class="sound-icon" onclick="playMalay('menunggu bas', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">流汗<span class="sound-icon" onclick="playChinese('流汗', event)">🔊</span></div>
+        <div class="card-back">mengeluarkan peluh<span class="sound-icon" onclick="playMalay('mengeluarkan peluh', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">剪指甲<span class="sound-icon" onclick="playChinese('剪指甲', event)">🔊</span></div>
+        <div class="card-back">memotong kuku<span class="sound-icon" onclick="playMalay('memotong kuku', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">照顾安全<span class="sound-icon" onclick="playChinese('照顾安全', event)">🔊</span></div>
+        <div class="card-back">menjaga keselamatan<span class="sound-icon" onclick="playMalay('menjaga keselamatan', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">唱歌<span class="sound-icon" onclick="playChinese('唱歌', event)">🔊</span></div>
+        <div class="card-back">menyanyikan lagu<span class="sound-icon" onclick="playMalay('menyanyikan lagu', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">帮老人<span class="sound-icon" onclick="playChinese('帮老人', event)">🔊</span></div>
+        <div class="card-back">menolong orang tua<span class="sound-icon" onclick="playMalay('menolong orang tua', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">站直<span class="sound-icon" onclick="playChinese('站直', event)">🔊</span></div>
+        <div class="card-back">berdiri tegak<span class="sound-icon" onclick="playMalay('berdiri tegak', event)">🔊</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 22-28/4 -->
+  <section id="group-3" class="card-group group-3">
+    <h2 class="group-title">22-28/4</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">温习功课<span class="sound-icon" onclick="playChinese('温习功课', event)">🔊</span></div>
+        <div class="card-back">mengulang kaji pelajaran<span class="sound-icon" onclick="playMalay('mengulang kaji pelajaran', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">借书<span class="sound-icon" onclick="playChinese('借书', event)">🔊</span></div>
+        <div class="card-back">meminjam buku<span class="sound-icon" onclick="playMalay('meminjam buku', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">上网<span class="sound-icon" onclick="playChinese('上网', event)">🔊</span></div>
+        <div class="card-back">melayari Internet<span class="sound-icon" onclick="playMalay('melayari Internet', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">找资料<span class="sound-icon" onclick="playChinese('找资料', event)">🔊</span></div>
+        <div class="card-back">mencari maklumat<span class="sound-icon" onclick="playMalay('mencari maklumat', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">找书<span class="sound-icon" onclick="playChinese('找书', event)">🔊</span></div>
+        <div class="card-back">mencari buku<span class="sound-icon" onclick="playMalay('mencari buku', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">拿书<span class="sound-icon" onclick="playChinese('拿书', event)">🔊</span></div>
+        <div class="card-back">mengambil buku<span class="sound-icon" onclick="playMalay('mengambil buku', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">排书<span class="sound-icon" onclick="playChinese('排书', event)">🔊</span></div>
+        <div class="card-back">menyusun buku<span class="sound-icon" onclick="playMalay('menyusun buku', event)">🔊</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1-7/5 -->
+  <section id="group-4" class="card-group group-4">
+    <h2 class="group-title">1-7/5</h2>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">买食物<span class="sound-icon" onclick="playChinese('买食物', event)">🔊</span></div>
+        <div class="card-back">membeli makanan<span class="sound-icon" onclick="playMalay('membeli makanan', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">小心驾车<span class="sound-icon" onclick="playChinese('小心驾车', event)">🔊</span></div>
+        <div class="card-back">memandu dengan cermat<span class="sound-icon" onclick="playMalay('memandu dengan cermat', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">绑安全带<span class="sound-icon" onclick="playChinese('绑安全带', event)">🔊</span></div>
+        <div class="card-back">memakai tali pinggang keledar<span class="sound-icon" onclick="playMalay('memakai tali pinggang keledar', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">负责任<span class="sound-icon" onclick="playChinese('负责任', event)">🔊</span></div>
+        <div class="card-back">bertanggungjawab<span class="sound-icon" onclick="playMalay('bertanggungjawab', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">等红绿灯<span class="sound-icon" onclick="playChinese('等红绿灯', event)">🔊</span></div>
+        <div class="card-back">menunggu lampu isyarat<span class="sound-icon" onclick="playMalay('menunggu lampu isyarat', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">遵守限速<span class="sound-icon" onclick="playChinese('遵守限速', event)">🔊</span></div>
+        <div class="card-back">mematuhi had laju<span class="sound-icon" onclick="playMalay('mematuhi had laju', event)">🔊</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">有礼貌<span class="sound-icon" onclick="playChinese('有礼貌', event)">🔊</span></div>
+        <div class="card-back">berbudi bahasa<span class="sound-icon" onclick="playMalay('berbudi bahasa', event)">🔊</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+// 切换卡片组显示
+function toggleGroup(groupId) {
+  const group = document.getElementById(groupId);
+  group.style.display = group.style.display === "none" ? "block" : "none";
+}
+
+// 卡片交互功能
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    // 如果点击的是喇叭图标，则不翻转卡片
+    if (!e.target.classList.contains('sound-icon')) {
+      this.classList.toggle('flipped');
+    }
+  });
+});
+
+// 播放中文发音
+function playChinese(text, event) {
+  event.stopPropagation(); // 阻止事件冒泡
+  if (window.speechSynthesis) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'zh-CN';
+    utterance.rate = 0.9;
+    
+    // 尝试寻找中文语音
+    const voices = window.speechSynthesis.getVoices();
+    const chineseVoice = voices.find(voice => 
+      voice.lang.includes('zh-') || voice.lang.includes('cmn-')
+    );
+    
+    if (chineseVoice) {
+      utterance.voice = chineseVoice;
+    }
+    
+    window.speechSynthesis.cancel(); // 取消当前正在播放的语音
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("您的浏览器不支持语音合成功能，请使用Chrome或Edge浏览器");
+  }
+}
+
+// 播放马来文发音
+function playMalay(text, event) {
+  event.stopPropagation(); // 阻止事件冒泡
+  if (window.speechSynthesis) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ms-MY'; // 马来语
+    utterance.rate = 0.9;
+    
+    // 尝试寻找马来语语音
+    const voices = window.speechSynthesis.getVoices();
+    const malayVoice = voices.find(voice => 
+      voice.lang.includes('ms-') || voice.lang.includes('malay')
+    );
+    
+    if (malayVoice) {
+      utterance.voice = malayVoice;
+    }
+    
+    window.speechSynthesis.cancel(); // 取消当前正在播放的语音
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("您的浏览器不支持语音合成功能，请使用Chrome或Edge浏览器");
+  }
+}
+
+// 加载语音列表（某些浏览器需要）
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = function() {
+    // 语音列表已加载
+  };
+}
+</script>
+</body>
+</html>
